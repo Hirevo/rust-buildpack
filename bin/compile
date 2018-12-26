@@ -53,7 +53,7 @@ cargo clean
 rm -rf $HOME/.cargo/registry $HOME/.cargo/git
 mkdir $HOME/.cargo/registry $HOME/.cargo/git
 rustup toolchain uninstall stable
-rustup self uninstall
+rustup self uninstall -y
 
 echo
 echo $BOLD$GREEN"Build succeeded !"$RESET
