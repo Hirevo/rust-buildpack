@@ -13,10 +13,12 @@ RED=$'\033[38;2;255;85;85m'
 GREEN=$'\033[38;2;38;252;166m'
 BLUE=$'\033[38;2;0;133;255m'
 
+header() {
+    echo "----->" $@
+}
+
 handle_error() {
-    echo
-    echo $BOLD$RED"Build failed !"$RESET
-    echo
+    header $BOLD$RED"Build failed !"$RESET
 }
 trap 'handle_error' ERR
 
@@ -31,22 +33,18 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 
 ### Install Rust toolchain
-echo
-echo $BOLD$BLUE"Installing Rust toolchain..."$RESET
-echo
+header "Installing Rust toolchain..."
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 source $HOME/.cargo/env
+header "Toolchain installed !"
 
 ### Compiling application
-echo
-echo $BOLD$BLUE"Compiling application..."$RESET
-echo
+header "Compiling application..."
 cargo build --release
+header $BOLD$GREEN"Build succeeded !"$RESET
 
 ### Cleaning artifacts
-echo
-echo $BOLD$BLUE"Cleaning artifacts..."$RESET
-echo
+header "Cleaning artifacts..."
 BINARY=$(find $BUILD_DIR/target/release -maxdepth 1 -type f -executable)
 cp $BINARY $BUILD_DIR/output
 cargo clean
@@ -54,7 +52,4 @@ rm -rf $HOME/.cargo/registry $HOME/.cargo/git
 mkdir $HOME/.cargo/registry $HOME/.cargo/git
 rustup toolchain uninstall stable
 rustup self uninstall -y
-
-echo
-echo $BOLD$GREEN"Build succeeded !"$RESET
-echo
+header "Artifacts cleaned !"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # bin/detect <build-dir>
 
-BUILD_DIR=$1
+BUILD_DIR=${1:-}
 
 if [ -f $BUILD_DIR/Cargo.toml ]; then
   echo "Rust" && exit 0
