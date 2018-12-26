@@ -18,14 +18,18 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 
 ### Install Rust toolchain
-echo "Installing Rust toolchain..."
+echo
+echo $'\033[1mInstalling Rust toolchain...\033[0m'
+echo
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 source $HOME/.cargo/env
 
 ### Compiling application
 echo
-echo "Compiling application..."
+echo $'\033[1mCompiling application...\033[0m'
+echo
 cargo build --release
 
-echo "Build succeeded !!"
+echo
+echo $'\033[1mBuild succeeded !\033[0m'
 echo

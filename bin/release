@@ -3,4 +3,5 @@
 
 BUILD_DIR=$1
 
+source $HOME/.cargo/env
 cargo run --release
