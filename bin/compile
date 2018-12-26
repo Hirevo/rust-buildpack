@@ -52,6 +52,8 @@ cp $BINARY $BUILD_DIR/output
 cargo clean
 rm -rf $HOME/.cargo/registry $HOME/.cargo/git
 mkdir $HOME/.cargo/registry $HOME/.cargo/git
+rustup toolchain uninstall stable
+rustup self uninstall
 
 echo
 echo $BOLD$GREEN"Build succeeded !"$RESET
