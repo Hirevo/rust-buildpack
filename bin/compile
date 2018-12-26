@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+### Configure environment
+set -o errexit    # always exit on error
+set -o pipefail   # don t ignore exit codes when piping output
+
+unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
+
+### Constants
+
+DEFAULT_CACHE="node_modules bower_components"
+BPLOG_PREFIX="buildpack.nodejs"
+
+### Configure directories
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+
+### Install Rust toolchain
+header "Installing Rust toolchain..."
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source $HOME/.cargo/env
+
+### Compiling application
+header "Compiling application..."
+cargo build --release
+
+header "Build succeeded!"

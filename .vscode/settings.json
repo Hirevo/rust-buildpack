@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "detect": "shellscript",
+        "compile": "shellscript",
+        "release": "shellscript"
+    }
+}
