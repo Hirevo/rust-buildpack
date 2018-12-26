@@ -3,5 +3,10 @@
 
 BUILD_DIR=$1
 
-source $HOME/.cargo/env
-cargo run --release
+cat << EOF
+addons: []
+default_process_types:
+  web:
+    source $HOME/.cargo/env
+    cargo run --release
+EOF

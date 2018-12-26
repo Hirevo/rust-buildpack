@@ -7,6 +7,19 @@ set -o pipefail   # don t ignore exit codes when piping output
 
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
 
+RESET=$'\033[0m'
+BOLD=$'\033[0m'
+RED=$'\033[38;2;255;85;85m'
+GREEN=$'\033[38;2;38;252;166m'
+BLUE=$'\033[38;2;0;133;255m'
+
+handle_error() {
+    echo
+    echo $BOLD$RED"Build failed !"$RESET
+    echo
+}
+trap 'handle_error' ERR
+
 ### Constants
 
 DEFAULT_CACHE="node_modules bower_components"
@@ -19,17 +32,17 @@ ENV_DIR=${3:-}
 
 ### Install Rust toolchain
 echo
-echo $'\033[1mInstalling Rust toolchain...\033[0m'
+echo $BOLD$BLUE"Installing Rust toolchain..."$RESET
 echo
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 source $HOME/.cargo/env
 
 ### Compiling application
 echo
-echo $'\033[1mCompiling application...\033[0m'
+echo $BOLD$BLUE"Compiling application..."$RESET
 echo
 cargo build --release
 
 echo
-echo $'\033[1mBuild succeeded !\033[0m'
+echo $BOLD$GREEN"Build succeeded !"$RESET
 echo
