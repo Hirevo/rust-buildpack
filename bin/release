@@ -6,7 +6,5 @@ BUILD_DIR=$1
 cat << EOF
 addons: []
 default_process_types:
-  web:
-    source $HOME/.cargo/env
-    cargo run --release
+  web: $BUILD_DIR/output
 EOF

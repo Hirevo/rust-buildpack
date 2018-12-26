@@ -48,8 +48,10 @@ echo
 echo $BOLD$BLUE"Cleaning artifacts..."$RESET
 echo
 BINARY=$(find $BUILD_DIR/target/release -maxdepth 1 -type f -executable)
-cp $BINARY $BUILD_DIR
+cp $BINARY $BUILD_DIR/output
 cargo clean
+rm -rf $HOME/.cargo/registry $HOME/.cargo/git
+mkdir $HOME/.cargo/registry $HOME/.cargo/git
 
 echo
 echo $BOLD$GREEN"Build succeeded !"$RESET
