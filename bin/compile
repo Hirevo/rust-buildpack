@@ -26,6 +26,9 @@ trap 'handle_error' ERR
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
+BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+
+JQ=$BP_DIR/vendor/jq-linux64
 
 ### Install Rust toolchain
 header "Installing Rust toolchain..."
@@ -41,7 +44,7 @@ header $BOLD$GREEN"Build succeeded !"$RESET
 
 ### Cleaning artifacts
 header "Cleaning artifacts..."
-BINARY=$(cargo metadata --no-deps --format-version=1 | jq '.packages[0].targets|map(select(.kind[] == "bin"))[0].name')
+BINARY=$(cargo metadata --no-deps --format-version=1 | $JQ '.packages[0].targets|map(select(.kind[] == "bin"))[0].name')
 cp $BINARY $BUILD_DIR/output
 cargo clean
 rm -rf $HOME/.cargo/registry $HOME/.cargo/git
