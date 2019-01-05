@@ -44,7 +44,7 @@ header $BOLD$GREEN"Build succeeded !"$RESET
 
 ### Cleaning artifacts
 header "Cleaning artifacts..."
-BINARY=$(cargo metadata --no-deps --format-version=1 | $JQ '.packages[0].targets|map(select(.kind[] == "bin"))[0].name')
+BINARY=$(cargo metadata --no-deps --format-version=1 | $JQ --raw-output '.packages[0].targets|map(select(.kind[] == "bin"))[0].name')
 cp $BINARY $BUILD_DIR/output
 cargo clean
 rm -rf $HOME/.cargo/registry $HOME/.cargo/git
