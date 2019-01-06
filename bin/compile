@@ -32,9 +32,8 @@ JQ=$BP_DIR/vendor/jq-linux64
 
 ### Install Rust toolchain
 header "Installing Rust toolchain..."
-curl https://sh.rustup.rs -sSf | sh -s -- -y
+curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly-2018-12-19
 source $HOME/.cargo/env
-rustup default nightly-2018-12-19
 header "Toolchain installed !"
 
 ### Compiling application
